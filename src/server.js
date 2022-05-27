@@ -3,6 +3,7 @@ const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 const app = express()
 const modules = require('./modules')
+const PORT = process.env.PORT || 4040
 
 const server = new ApolloServer({
     modules,
@@ -15,7 +16,7 @@ const httpServer = http.createServer(app)
 server.applyMiddleware({ app })
 server.installSubscriptionHandlers(httpServer)
 
-httpServer.listen({ port: 4040}, () => {
-    console.log('http://localhost:4040' + server.graphqlPath)
-    console.log('ws://localhost:4040' + server.subscriptionsPath)
+httpServer.listen({ port: PORT}, () => {
+    console.log(`http://localhost:${PORT}` + server.graphqlPath)
+    console.log(`ws://localhost:${PORT}` + server.subscriptionsPath)
 })
